@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import {useState} from "react";
 import "../css/Navbar.css";
-
+import { FaSearch } from "react-icons/fa"; // import search icon
 
 
 export default function Navbar() {
@@ -26,7 +26,7 @@ export default function Navbar() {
             onChange={(e)=> setSearchCar(e.target.value)}
           />
            <button type="submit" className="search-button">
-          Search
+          <FaSearch/>
         </button>
         </form>
        
@@ -40,7 +40,7 @@ export default function Navbar() {
         </div>
         <div className="car-rent">
           <Link to="/Post-car">Post car🚗</Link>
-        </div>
+        </div> 
         <div className="car-book">
           <Link to="/profile">Profile👤</Link>
         </div>

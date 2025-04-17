@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 import "../css/CarCard.css"
 
 export default function CarCard() {
   const [carData, setCarData] = useState([]);
-  const [reviews, setReviews] = useState({}); // Store reviews for each car
+  const [reviews, setReviews] = useState({});
+  const navigate = useNavigate(); // Store reviews for each car
 
   // Fetch car data
   useEffect(() => {
@@ -20,7 +22,8 @@ export default function CarCard() {
 
   // Handle Rent Button Click
   function handleRentClick(carId) {
-    alert(`Car with ID ${carId} rented successfully!`);
+    // Navigate to /cardetail with carId as a URL parameter
+    navigate(`/cardetail/${carId}`);
   }
 
   // Handle Review Submission

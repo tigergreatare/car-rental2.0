@@ -1,0 +1,61 @@
+/* Homepage container */
+.homepage {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light background */
+    min-height: 100vh;
+  }
+  
+  /* Header section */
+  .header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  /* Car listing section */
+  .car-listing {
+    max-width: 1200px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Section header */
+  .car-header p {
+    background-color: #f4f4f4;
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 14px;
+    color: #555;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+  
+  .car-header h1 {
+    font-size: 28px;
+    margin: 10px 0 30px;
+    color: #333;
+  }
+  
+  /* Car cards container */
+  .car-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  .car-para{
+    background-color: #C3E54B;
+  }
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .car-listing {
+      padding: 10px;
+    }
+  
+    .car-header h1 {
+      font-size: 24px;
+    }
+  }
+  

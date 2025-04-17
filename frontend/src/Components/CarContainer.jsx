@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function CarContainer() {
   const [cars, setCars] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate(); // Hook to navigate to another route
 
   // Fetch car data
   useEffect(() => {
@@ -30,8 +32,8 @@ export default function CarContainer() {
   }, []);
 
   const handleRentClick = (carId) => {
-    // Your rent logic here, e.g., adding the car to a rental cart
-    console.log("Renting car with ID:", carId);
+    // Navigate to the car detail page
+    navigate(`/car/${carId}/payment`);
   };
 
   return (

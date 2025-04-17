@@ -1,0 +1,70 @@
+.profile-page {
+    background-color: #f3f4f6;
+    min-height: 100vh;
+    width: 100%;
+  }
+  
+  .content-container {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    gap: 32px;
+  }
+  
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 25%;
+  }
+  
+  .user-info, .controls {
+    background-color: #c0f296;
+    padding: 16px;
+    border-radius: 16px;
+  }
+  
+  .profile-image {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+  }
+  
+  .action-button {
+    background-color: #000;
+    color: #fff;
+    padding: 8px;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  
+  input {
+    display: block;
+    padding: 8px;
+    margin-bottom: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .right-section {
+    flex: 1;
+  }
+  
+  .right-section h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: aqua;
+    margin-bottom: 24px;
+  }
+  
+
+  
+  .cars-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  

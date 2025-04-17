@@ -1,11 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
-import Navbar from "../Components/Navbar";
+import { useNavigate } from "react-router-dom";
 
-
-const Login = ({ setPage }) => {
+const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,17 +14,17 @@ const Login = ({ setPage }) => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:5000/login", formData);
-      localStorage.setItem("token", res.data.token);
       alert("Login successful!");
-      setPage("home");
+      localStorage.setItem("userId", res.data.userId);
+      navigate("/"); // Navigate to home page after successful login
     } catch (err) {
-      alert(err("Invalid email or password"));
+      console.error("Login Error:", err.response || err.message);
+      alert("Invalid email or password");
     }
   };
 
   return (
     <div>
-        <Navbar />
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
@@ -46,11 +45,12 @@ const Login = ({ setPage }) => {
         />
         <button type="submit">Login</button>
       </form>
-      <button onClick={() => setPage("signup")}>Go to Signup</button>
+      <button onClick={() => navigate("/signup")}>Go to Signup</button>
     </div>
   );
 };
-Login.propTypes = {
-  setPage: PropTypes.func.isRequired,  // setPage is a required function
-};
+
 export default Login;
+
+
+

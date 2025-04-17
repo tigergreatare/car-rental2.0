@@ -1,9 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
-import PropTypes from "prop-types"; 
-import Navbar from "../Components/Navbar";
+import { useNavigate } from "react-router-dom";
 
-const Signup = ({ setPage }) => {
+const Signup = () => {
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
@@ -11,6 +10,7 @@ const Signup = ({ setPage }) => {
     phone: "",
     address: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,22 +18,18 @@ const Signup = ({ setPage }) => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-  
     try {
       await axios.post("http://localhost:5000/signup", formData);
       alert("Signup successful! Please login.");
-      setPage("login");
+      navigate("/signin");
     } catch (err) {
-      console.log("Error during signup:", err.response || err.message);
-      alert("Error signing up: " + (err.response?.data || err.message));
+      console.error("Signup Error:", err.response || err.message);
+      alert("Error signing up: " + (err.response?.data?.error || err.message));
     }
   };
-  
-  
 
   return (
     <div>
-        <Navbar />
       <h2>Signup</h2>
       <form onSubmit={handleSignup}>
         <input type="text" name="full_name" placeholder="Full Name" onChange={handleChange} required />
@@ -43,12 +39,11 @@ const Signup = ({ setPage }) => {
         <textarea name="address" placeholder="Address" onChange={handleChange} required></textarea>
         <button type="submit">Signup</button>
       </form>
-      <button onClick={() => setPage("login")}>Go to Login</button>
+      <button onClick={() => navigate("/signin")}>Go to Login</button>
     </div>
   );
 };
 
-Signup.propTypes = {
-  setPage: PropTypes.func.isRequired,  // setPage is a required function
-};
 export default Signup;
+
+

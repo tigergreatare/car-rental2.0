@@ -1,11 +1,11 @@
 import CarCard from "../Components/CarCard";
-import Navbar from "../Components/Navbar";
+
 import "../css/HomePage.css";
 export default function HomePage() {
   return (
     <div className="homepage">
       <div className="header">
-        <Navbar />
+    
       
       </div>
       {/**

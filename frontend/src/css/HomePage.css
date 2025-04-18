@@ -1,61 +1,89 @@
+/* Apply basic layout and center the homepage */
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #a1e978;
+  min-height: 100vh; /* Ensure body takes full height */
+}
+
 /* Homepage container */
 .homepage {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa; /* Light background */
-    min-height: 100vh;
-  }
-  
-  /* Header section */
-  .header {
-    width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  /* Car listing section */
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa; /* Light background */
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1200px; /* Set a reasonable max width */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
+/* Header section */
+.header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff; /* Optional background to make it visible */
+}
+
+/* Car listing section */
+.car-listing {
+  max-width: 100%;
+  margin: 40px auto;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Section header */
+.car-header p {
+  background-color: #f4f4f4;
+  display: inline-block;
+  padding: 5px 15px;
+  font-size: 14px;
+  color: #555;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.car-header h1 {
+  font-size: 28px;
+  margin: 10px 0 30px;
+  color: #333;
+}
+
+/* Car cards container */
+.car-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch; /* Keep height consistent */
+  padding: 10px 0;
+}
+
+/* Individual car card */
+.car-para {
+  background-color: #C3E54B;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 200px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .car-listing {
-    max-width: 1200px;
-    margin: 40px auto;
-    text-align: center;
-    padding: 20px;
+    padding: 10px;
   }
-  
-  /* Section header */
-  .car-header p {
-    background-color: #f4f4f4;
-    display: inline-block;
-    padding: 5px 15px;
-    font-size: 14px;
-    color: #555;
-    border-radius: 20px;
-    font-weight: bold;
-  }
-  
+
   .car-header h1 {
-    font-size: 28px;
-    margin: 10px 0 30px;
-    color: #333;
+    font-size: 24px;
   }
-  
-  /* Car cards container */
-  .car-card {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+
+  .car-para {
+    min-width: 150px;
   }
-  .car-para{
-    background-color: #C3E54B;
-  }
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .car-listing {
-      padding: 10px;
-    }
-  
-    .car-header h1 {
-      font-size: 24px;
-    }
-  }
-  
+}
+

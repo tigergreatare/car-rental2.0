@@ -5,6 +5,9 @@ const db = require("./mysql"); // Make sure to have the mysql.js file for DB con
 const path   = require("path");
 const multer = require("multer");
 
+const http = require('http');
+const { Server } = require('socket.io');
+
 // configure multer to write into ./uploads
 const storage = multer.diskStorage({
   destination: (_, __, cb) => cb(null, path.join(__dirname, "uploads")),
@@ -13,6 +16,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 const router = express.Router();
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Set appropriate origin in production
+    methods: ["GET", "POST"]
+  }
+});
 app.use(cors());
 app.use(express.json()); // Parse incoming JSON data
 app.use("/", router);
@@ -193,6 +203,67 @@ app.delete("/profile/:user_id", (req, res) => {
 
     res.json({ message: "User deleted successfully" });
   });
+});
+// --- CHAT SOCKET.IO INTEGRATION ---
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+
+  socket.on('joinRoom', (user_id) => {
+    socket.join(`user_${user_id}`);
+  });
+
+  socket.on('sendMessage', async ({ sender_id, receiver_id, message, reply_to }) => {
+    try {
+      const [result] = await db.promise().query(
+        "INSERT INTO messages (sender_id, receiver_id, message, reply_to) VALUES (?, ?, ?, ?)",
+        [sender_id, receiver_id, message, reply_to || null]
+      );
+
+      const newMessage = {
+        id: result.insertId,
+        sender_id,
+        receiver_id,
+        message,
+        created_at: new Date(),
+        delivered: false,
+        seen: false,
+        reply_to
+      };
+
+      io.to(`user_${receiver_id}`).emit('receiveMessage', newMessage);
+    } catch (error) {
+      console.error("Database Error:", error);
+    }
+  });
+
+  socket.on('messageDelivered', async (message_id) => {
+    await db.promise().query("UPDATE messages SET delivered = TRUE WHERE id = ?", [message_id]);
+  });
+
+  socket.on('messageSeen', async (message_id) => {
+    await db.promise().query("UPDATE messages SET seen = TRUE WHERE id = ?", [message_id]);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`User Disconnected: ${socket.id}`);
+  });
+});
+
+// --- API for Chat History ---
+app.get('/messages/:user1/:user2', async (req, res) => {
+  const { user1, user2 } = req.params;
+  try {
+    const [messages] = await db.promise().query(
+      `SELECT * FROM messages 
+       WHERE (sender_id = ? AND receiver_id = ?) 
+       OR (sender_id = ? AND receiver_id = ?) 
+       ORDER BY created_at`,
+      [user1, user2, user2, user1]
+    );
+    res.json(messages);
+  } catch (err) {
+    res.status(500).json({ error: "Database Error" });
+  }
 });
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

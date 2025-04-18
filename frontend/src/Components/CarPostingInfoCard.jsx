@@ -69,7 +69,7 @@ export default function PostingInfoForm() {
             <textarea name="rentalTerms" value={formData.rentalTerms} onChange={handleChange} placeholder="Enter rental terms" required />
             <input type="text" name="rentalPrice" value={formData.rentalPrice} onChange={handleChange} placeholder="Enter rental price" required />
             <input type="text" name="securityDeposit" value={formData.securityDeposit} onChange={handleChange} placeholder="Enter security deposit amount" required />
-            <input type="text" name="securityDeposit" value={formData.insuranceCoverage} onChange={handleChange} placeholder="Enter security deposit amount" required />
+            
             <input type="text" name="securityDeposit" value={formData.fuelPolicy} onChange={handleChange} placeholder="Enter security deposit amount" required />
 
           </div>
